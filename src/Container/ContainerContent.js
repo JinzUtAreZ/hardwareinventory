@@ -5,7 +5,8 @@ import Grid from '@material-ui/core/Grid';
 
 // import SignIn2 from '../Login/SignIn2';
 // import CardContent from '../Card/CardElem';
-import CardContent from '../Card/CardContent';
+//import CardContent from '../Card/CardContext';
+import SignIn from '../Login/SignIn';
 
 const ContainerContent = () => {
   const classes = useStyles();
@@ -14,7 +15,7 @@ const ContainerContent = () => {
       <Grid container spacing={3}>
         <Grid item xs></Grid>
         <Grid item xs={6}>
-          <CardContent />
+          <SignIn />
         </Grid>
         <Grid item xs></Grid>
       </Grid>
