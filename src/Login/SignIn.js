@@ -7,13 +7,15 @@ import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-// import Button from '@material-ui/core/Button';
+import InputField from '../Elements/Input/InputField';
 import PersonIcon from '@material-ui/icons/Person';
 import LockIcon from '@material-ui/icons/Lock';
-import InputField from '../Elements/Input/InputField';
-import { Validators } from '../Elements/Input/Validator';
 
+import { Validators } from '../Elements/Input/Validator';
 import ButtonContext from '../Elements/Button/ButtonContext';
+
+import * as authActions from '../store/actions/authActions';
+import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -57,6 +59,7 @@ export function HeaderText() {
 
 export function FormContext() {
   const [txtInput, setTxtInput] = useState({});
+  const dispatch = useDispatch();
 
   const handleChange = (key) => (value) => {
     //alert('Change Clicked');
@@ -66,11 +69,20 @@ export function FormContext() {
     //this.setState({ [key]: value });
   };
 
-  const eventClick = (data) => {
+  const eventClick = async (data) => {
     //setClick(!click);
     console.log(data);
     alert('Button Clicked');
-    //setBtnHide(false);
+    let action;
+    action = authActions.signUp(txtInput.EmailLang, txtInput.PasswordLang);
+
+    try {
+      await dispatch(action);
+      //props.navigation.navigate('Shop');
+    } catch (err) {
+      //setError(err.message);
+      //setIsLoading(false);
+    }
   };
 
   const classes = useStyles();
@@ -100,17 +112,6 @@ export function FormContext() {
           <LockIcon color="action" style={{ fontSize: 40, marginTop: 20 }} />
         </Grid>
         <Grid item xs={11}>
-          {/* <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          /> */}
           <InputField
             label="Password"
             value={txtInput.PasswordLang}
@@ -138,17 +139,6 @@ export function FormContext() {
           />
         </Grid>
       </Grid>
-
-      {/* <Button
-        type="submit"
-        fullWidth
-        variant="contained"
-        color="primary"
-        className={classes.submit}
-      >
-        Sign In
-      </Button> */}
-
       <ButtonContext
         value="login"
         textval="Login"

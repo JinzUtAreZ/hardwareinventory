@@ -15,12 +15,14 @@ const InputField = ({
   focus,
 }) => {
   const [error, setError] = useState(false);
+  const [msg, setMsg] = useState('');
   const [oldVal, setOldVal] = useState('');
 
   const handleChange = (event) => {
     const { value } = event.target;
-    setError(validateInput(validators, value));
     const checkError = validateInput(validators, value);
+    setError(checkError.error);
+    setMsg(checkError.message);
     if (checkError.error === true) {
       if (validtype === 'email' || validtype === 'password') {
         onChange(value);
@@ -60,7 +62,7 @@ const InputField = ({
           name={label}
           autoComplete={label}
           autoFocus={focus}
-          helperText={error.message}
+          helperText={msg}
           error={error}
         />
       )}
