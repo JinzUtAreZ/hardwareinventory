@@ -15,35 +15,38 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SideMenu = (props) => {
+const SideMenuBasic = (props) => {
   const classes = useStyles();
   return (
     <Fragment>
       {props.menu.map((text, index) => (
-        <ListItem button key={text[0]}>
-          <ListItemIcon>
-            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-          </ListItemIcon>
+        <Link
+          className={classes.removeLink}
+          to={text[0] === 'home' ? `/` : `/${text[0]}`}
+        >
+          <ListItem button key={text[0]}>
+            <ListItemIcon>
+              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+            </ListItemIcon>
 
-          <Link
-            className={classes.removeLink}
-            to={text[0] === 'home' ? `/` : `/${text[0]}`}
-          >
             <ListItemText primary={text[1]} />
-          </Link>
-        </ListItem>
+          </ListItem>
+        </Link>
       ))}
-      {/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+    </Fragment>
+  );
+  //}
+};
+
+export default SideMenuBasic;
+
+////////  hardcoded side menu //////
+
+/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
         <ListItem button key={text}>
           <ListItemIcon>
             {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
           </ListItemIcon>
           <ListItemText primary={text} />
         </ListItem>
-      ))} */}
-    </Fragment>
-  );
-  //}
-};
-
-export default SideMenu;
+      ))} */

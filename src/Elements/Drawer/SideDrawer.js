@@ -9,25 +9,14 @@ import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { BrowserRouter } from 'react-router-dom';
-// import { Link } from 'react-router-dom';
 
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import AppleIcon from '@material-ui/icons/Apple';
 
-import SideMenu from '../Drawer/SideMenu';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import Collapse from '@material-ui/core/Collapse';
-import StarBorder from '@material-ui/icons/StarBorder';
-import PeopleIcon from '@material-ui/icons/People';
+import SideMenuBasic from './SideMenuBasic';
+import SideMenuUnli from './SideMenuUnli';
 
 import NavRouter from '../../Navigation/NavRouter';
 
@@ -128,11 +117,97 @@ export default function PersistentDrawerLeft() {
     ['itemmaster', 'Item Master'],
   ];
 
-  // const Link2Name = [
-  //   ['contactus', 'Contact Us'],
-  //   ['create', 'Create Page'],
-  //   ['profile', 'User Profile'],
-  // ];
+  const Link2Name = [
+    [
+      {
+        menu: [
+          { linkID: 'contactus', text: 'Contact Us' },
+          { linkID: 'contactme', text: 'Contact Me' },
+        ],
+        submenu: [
+          { linkID: 'create', text: 'Create Page' },
+          { linkID: 'delete', text: 'Delete Page' },
+        ],
+        submenu1: [{ linkID: 'fuck' }, { text: 'Fuck You' }],
+      },
+    ],
+    // ['contactus', 'Contact Us'],
+    // ['create', 'Create Page'],
+    // ['profile', 'User Profile'],
+  ];
+
+  const Link3Name = {
+    module_type: 'menu',
+    title: 'My Unli Link Site',
+    menu: [
+      {
+        link: '/',
+        title: 'Home',
+      },
+      {
+        link: '#',
+        title: 'User',
+        menu: [
+          {
+            link: '/signin',
+            title: 'Sign In',
+          },
+          {
+            link: '/register',
+            title: 'Register',
+          },
+          {
+            link: '/kiwi',
+            title: 'Kiwi',
+          },
+          {
+            link: '/pears',
+            title: 'Pears',
+          },
+        ],
+      },
+      {
+        link: '#',
+        title: 'Vegetables',
+        menu: [
+          {
+            link: '/carrots',
+            title: 'Carrots',
+          },
+          {
+            link: '/celery',
+            title: 'Celery',
+          },
+          {
+            link: '/potatoes',
+            title: 'Potatoes',
+          },
+          {
+            link: '#',
+            title: 'More',
+            menu: [
+              {
+                link: '/thirdlevel1',
+                title: '3rd level menu',
+              },
+              {
+                link: '/thirdlevel2',
+                title: '3rd level two',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        link: '/about',
+        title: 'About',
+      },
+      {
+        link: '/contact',
+        title: 'Contact',
+      },
+    ],
+  };
 
   /* Reminders: BrowserRouter must be at the top level  */
 
@@ -182,10 +257,11 @@ export default function PersistentDrawerLeft() {
           </div>
           <Divider />
           <List>
-            <SideMenu menu={Link1Name} />
+            <SideMenuBasic menu={Link1Name} />
           </List>
           <Divider />
-          <List>
+          <SideMenuUnli menumap={Link3Name} />
+          {/* <List>
             {['All mail', 'Trash', 'Spam'].map((text, index) => (
               <ListItem button key={text}>
                 <ListItemIcon>
@@ -194,8 +270,8 @@ export default function PersistentDrawerLeft() {
                 <ListItemText primary={text} />
               </ListItem>
             ))}
-          </List>
-          <List>
+          </List> */}
+          {/* <List>
             <ListItem button onClick={handleClick}>
               <ListItemIcon>
                 <InboxIcon />
@@ -239,8 +315,8 @@ export default function PersistentDrawerLeft() {
                 </Collapse>
               </List>
             </Collapse>
-          </List>
-          <List>
+          </List> */}
+          {/* <List>
             {['All mail', 'Trash', 'Spam'].map((text, index) => (
               <ListItem button key={text}>
                 <ListItemIcon>
@@ -249,7 +325,7 @@ export default function PersistentDrawerLeft() {
                 <ListItemText primary={text} />
               </ListItem>
             ))}
-          </List>
+          </List> */}
         </Drawer>
         <main
           className={clsx(classes.content, {
