@@ -21,6 +21,7 @@ const SideMenuBasic = (props) => {
     <Fragment>
       {props.menu.map((text, index) => (
         <Link
+          key={index}
           className={classes.removeLink}
           to={text[0] === 'home' ? `/` : `/${text[0]}`}
         >

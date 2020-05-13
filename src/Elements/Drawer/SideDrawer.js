@@ -97,18 +97,6 @@ export default function PersistentDrawerLeft() {
     setOpen(false);
   };
 
-  const [openMenu, setOpenMenu] = React.useState(false);
-
-  const handleClick = () => {
-    setOpenMenu(!openMenu);
-  };
-
-  const [openMenu1, setOpenMenu1] = React.useState(false);
-
-  const handleClick1 = () => {
-    setOpenMenu1(!openMenu1);
-  };
-
   const Link1Name = [
     ['home', 'Home'],
     ['about', 'About'],
@@ -117,31 +105,13 @@ export default function PersistentDrawerLeft() {
     ['itemmaster', 'Item Master'],
   ];
 
-  const Link2Name = [
-    [
-      {
-        menu: [
-          { linkID: 'contactus', text: 'Contact Us' },
-          { linkID: 'contactme', text: 'Contact Me' },
-        ],
-        submenu: [
-          { linkID: 'create', text: 'Create Page' },
-          { linkID: 'delete', text: 'Delete Page' },
-        ],
-        submenu1: [{ linkID: 'fuck' }, { text: 'Fuck You' }],
-      },
-    ],
-    // ['contactus', 'Contact Us'],
-    // ['create', 'Create Page'],
-    // ['profile', 'User Profile'],
-  ];
-
-  const Link3Name = {
+  const Link2Name = {
     module_type: 'menu',
     title: 'My Unli Link Site',
     menu: [
       {
         link: '/',
+        key: 'home',
         title: 'Home',
       },
       {
@@ -150,18 +120,22 @@ export default function PersistentDrawerLeft() {
         menu: [
           {
             link: '/signin',
+            key: 'signin',
             title: 'Sign In',
           },
           {
             link: '/register',
+            key: 'register',
             title: 'Register',
           },
           {
-            link: '/kiwi',
-            title: 'Kiwi',
+            link: '/itemmaster',
+            key: 'itemmaster',
+            title: 'Item Master',
           },
           {
             link: '/pears',
+            key: 'pears',
             title: 'Pears',
           },
         ],
@@ -172,14 +146,17 @@ export default function PersistentDrawerLeft() {
         menu: [
           {
             link: '/carrots',
+            key: 'carrots',
             title: 'Carrots',
           },
           {
             link: '/celery',
+            key: 'celery',
             title: 'Celery',
           },
           {
             link: '/potatoes',
+            key: 'potatoes',
             title: 'Potatoes',
           },
           {
@@ -188,10 +165,12 @@ export default function PersistentDrawerLeft() {
             menu: [
               {
                 link: '/thirdlevel1',
+                key: 'thirdone',
                 title: '3rd level menu',
               },
               {
                 link: '/thirdlevel2',
+                key: 'thirdtwo',
                 title: '3rd level two',
               },
             ],
@@ -200,10 +179,12 @@ export default function PersistentDrawerLeft() {
       },
       {
         link: '/about',
+        key: 'about',
         title: 'About',
       },
       {
         link: '/contact',
+        key: 'contact',
         title: 'Contact',
       },
     ],
@@ -260,72 +241,7 @@ export default function PersistentDrawerLeft() {
             <SideMenuBasic menu={Link1Name} />
           </List>
           <Divider />
-          <SideMenuUnli menumap={Link3Name} />
-          {/* <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List> */}
-          {/* <List>
-            <ListItem button onClick={handleClick}>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary="Inbox" />
-              {openMenu ? <ExpandLess /> : <ExpandMore />}
-            </ListItem>
-            <Collapse in={openMenu} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItem button className={classes.nested}>
-                  <ListItemIcon>
-                    <StarBorder />
-                  </ListItemIcon>
-                  <ListItemText primary="Starred" />
-                </ListItem>
-                <ListItem
-                  button
-                  onClick={handleClick1}
-                  className={classes.nested}
-                >
-                  <ListItemIcon>
-                    <AppleIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Apple" />
-                  {openMenu1 ? <ExpandLess /> : <ExpandMore />}
-                </ListItem>
-                <Collapse
-                  in={openMenu1}
-                  timeout="auto"
-                  unmountOnExit
-                  className={classes.nested}
-                >
-                  <List component="div" disablePadding>
-                    <ListItem button className={classes.nested}>
-                      <ListItemIcon>
-                        <PeopleIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="People" />
-                    </ListItem>
-                  </List>
-                </Collapse>
-              </List>
-            </Collapse>
-          </List> */}
-          {/* <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List> */}
+          <SideMenuUnli menumap={Link2Name} />
         </Drawer>
         <main
           className={clsx(classes.content, {

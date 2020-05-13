@@ -13,9 +13,6 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 
 import List from '@material-ui/core/List';
 import Collapse from '@material-ui/core/Collapse';
-import StarBorder from '@material-ui/icons/StarBorder';
-import PeopleIcon from '@material-ui/icons/People';
-import AppleIcon from '@material-ui/icons/Apple';
 
 const useStyles = makeStyles((theme) => ({
   removeLink: {
@@ -51,13 +48,14 @@ const SideMenuUnli = (props) => {
       <Fragment>
         {items.map((i, index) => (
           <Fragment key={index}>
-            <Link className={classes.removeLink} to={i.link}>
-              {chksub && console.log('crap', i.title)}
+            <Link key={i.key} className={classes.removeLink} to={i.link}>
+              {/* {chksub && console.log('crap', i.title)} */}
               <ListItem
                 key={i.title}
                 button
                 onClick={() => handleClick(i.title)}
-                className={chksub.sub && classes.nested} //// submenu position
+                className={chksub.sub ? classes.nested : ''}
+                //// menu at submenu position
               >
                 <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
