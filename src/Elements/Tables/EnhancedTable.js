@@ -16,8 +16,6 @@ import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
@@ -25,17 +23,23 @@ function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
 
-let rows = [createData('Donut', 452, 25.0, 51, 4.9)];
-
-//let rows = [];
+let rows = [
+  createData('Donut', 452, 25.0, 51, 4.9),
+  createData('Noodles', 132, 74.0, 81, 6.9),
+];
 
 function addRowData() {
-  for (var i = 0; i < 1000000; i++) {
-    const newName = rows[0].name + i;
-    const newCal = rows[0].calories + Number(i);
-    const newFat = rows[0].fat + Number(i);
-    const newCarb = rows[0].carbs + Number(i);
-    const newProt = rows[0].protein + Number(i);
+  let alter = false;
+  let x = 0;
+  for (var i = 0; i < 10; i++) {
+    console.log(alter);
+    alter = !alter;
+    alter === false ? (x = 0) : (x = 1);
+    const newName = rows[x].name + i;
+    const newCal = rows[x].calories + Number(i);
+    const newFat = rows[x].fat + Number(i);
+    const newCarb = rows[x].carbs + Number(i);
+    const newProt = rows[x].protein + Number(i);
     const rowsNew = createData(newName, newCal, newFat, newCarb, newProt);
     //console.log(rowsNew);
     rows.push(rowsNew);
@@ -98,8 +102,11 @@ function EnhancedTableHead(props) {
 
   return (
     <TableHead>
-      <TableRow>
-        <TableCell padding="checkbox">
+      <TableRow
+        className={classes.tableRow}
+        classes={{ hover: classes.hover, selected: classes.selected }}
+      >
+        <TableCell padding="checkbox" className={classes.tableCell}>
           <Checkbox
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
@@ -109,6 +116,7 @@ function EnhancedTableHead(props) {
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
+            className={classes.tableCell}
             key={headCell.id}
             align={headCell.numeric ? 'right' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'default'}
@@ -236,15 +244,27 @@ const useStyles = makeStyles((theme) => ({
     top: 20,
     width: 1,
   },
+  tableRow1: {
+    '&$hover:hover': {
+      backgroundColor: 'blue',
+    },
+  },
+  tableCell1: {
+    '$hover:hover &': {
+      color: 'pink',
+    },
+  },
+  hover: {},
+  selected: {},
 }));
 
 export default function EnhancedTable() {
   const classes = useStyles();
   const [order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState('calories');
+  const [orderBy, setOrderBy] = useState('name');
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
-  const [dense, setDense] = useState(false);
+
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const [load, setLoad] = useState(false);
@@ -299,10 +319,6 @@ export default function EnhancedTable() {
     setPage(0);
   };
 
-  const handleChangeDense = (event) => {
-    setDense(event.target.checked);
-  };
-
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
   const emptyRows =
@@ -310,13 +326,13 @@ export default function EnhancedTable() {
 
   return (
     <div className={classes.root}>
+      {console.log(load)}
       <Paper className={classes.paper}>
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
             className={classes.table}
             aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
             aria-label="enhanced table"
           >
             <EnhancedTableHead
@@ -367,7 +383,7 @@ export default function EnhancedTable() {
                   );
                 })}
               {emptyRows > 0 && (
-                <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
+                <TableRow>
                   <TableCell colSpan={6} />
                 </TableRow>
               )}
@@ -384,10 +400,6 @@ export default function EnhancedTable() {
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
     </div>
   );
 }
