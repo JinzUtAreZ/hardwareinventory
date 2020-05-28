@@ -95,7 +95,9 @@ const CustomSelect = (props) => {
           {/* {datas.map((data, index) => {
             console.log(data.group);
           })} */}
-
+          
+          {/* aayusin ko pa to */}
+          
           {Object.keys(cats).map((cat, index) => (
             <optgroup label={cat}>
               {Object.keys(cat).map((data) => (
